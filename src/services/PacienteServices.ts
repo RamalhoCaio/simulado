@@ -8,7 +8,7 @@ class PacienteServices {
 
   async listarPaciente() {
     try {
-      const pacientes = await prisma.user.findMany();
+      const pacientes = await prisma.paciente.findMany();
       return pacientes;
     } catch (error) {
       console.log(error);
@@ -17,7 +17,7 @@ class PacienteServices {
 
   async criarPaciente(newPaciente: Paciente) {
     try {
-      const paciente = await prisma.Paciente.create({
+      const paciente = await prisma.paciente.create({
         data: newPaciente,
       });
       return paciente;
@@ -26,11 +26,11 @@ class PacienteServices {
     }
   }
 
-  async atualizarPaciente(id: number, email: string, name: string) {
+  async atualizarPaciente(id: string, nome: string, senha: number, usuario: string) {
     try {
-      const paciente = await prisma.Paciente.update({
+      const paciente = await prisma.paciente.update({
         where: { id: id },
-        data: { email: email, name: name },
+        data: { id: id, nome: nome, senha: senha, usuario: usuario },
       });
       return paciente;
     } catch (error) {
@@ -38,9 +38,9 @@ class PacienteServices {
     }
   }
 
-  async deletarPaciente(id: number) {
+  async deletarPaciente(id: string) {
     try {
-      const paciente = await prisma.Paciente.delete({
+      const paciente = await prisma.paciente.delete({
         where: { id: id },
       });
       return console.log('Paciente Deletado');

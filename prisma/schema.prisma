@@ -10,46 +10,34 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
-}
-
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
-}
-
 model Paciente {
-  id_paciente String @unique @default(uuid())
+  id String @unique @default(uuid())
   nome        String
   senha       Int @unique
   usuario     String
+  consulta    Consulta? @relation("pct")
 }
 
 model Secretaria {
+  id          String  @unique
   Nome        String
   RG          Int @unique
-  consulta    Consulta[] @relation("consulta", fields: [RG], references: [rg_secretaria])
+  consulta    Consulta[] @relation("consulta" )
 }
 
 model Consulta {
-  id          Int @unique
+  id          Int     @unique
   data        DateTime
-  nome_pcte   String  @relation("pct", fields: [id_paciente], references: [id_paciente])
-  id_paciente String 
-  senha_consulta Int
+  nome_pcte   Paciente  @relation("pct", fields: [id_paciente], references: [id])
+  id_paciente String @unique
+  senha_consulta Secretaria @relation("consulta", fields: [id_secretaria], references: [id])
+  id_secretaria String
   nome_dent   String
   rg_secretaria Int
 }
 
 model Agenda {
+  id          String @unique @default(uuid())
   data        DateTime @unique
   nomePcte    String
 }

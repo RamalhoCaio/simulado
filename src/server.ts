@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import PacienteRouter from './routes/PacienteRoutes';
 import SecretariaRouter from './routes/SecretariaRoutes';
 import ConsultaRouter from './routes/ConsultaRoutes';
+import AgendaRouter from './routes/AgendaRoutes';
 
 dotenv.config({ path: process.env.NODE_ENV === 'dev' ? '.env.dev' : '.env' });
 
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use('/api', PacienteRouter);
 app.use('/api', SecretariaRouter);
 app.use('/api', ConsultaRouter);
+app.use('/api', AgendaRouter);
 
 if (process.env.PORT) {
   app.listen(process.env.PORT, () => {

@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Secretaria } from '@prisma/client';
 import { json } from 'stream/consumers';
 
 
@@ -39,7 +39,7 @@ class SecretariaServices {
         }
     }
 
-    async deletarSecretaria(id: number) {
+    async deletarSecretaria(id: string) {
         try {
             const secretaria = await prisma.secretaria.delete({
                 where: { id:id }
