@@ -26,11 +26,11 @@ class PacienteServices {
     }
   }
 
-  async atualizarPaciente(id: string, nome: string, senha: number, usuario: string) {
+  async atualizarPaciente(atualizadoPaciente: Paciente) {
     try {
       const paciente = await prisma.paciente.update({
-        where: { id: id },
-        data: { id: id, nome: nome, senha: senha, usuario: usuario },
+        where: { id: atualizadoPaciente.id },
+        data: atualizadoPaciente,
       });
       return paciente;
     } catch (error) {

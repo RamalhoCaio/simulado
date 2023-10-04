@@ -27,11 +27,11 @@ class ConsultaServices {
           }
     }
 
-    async atualizarConsulta(id: number, data: Date, id_paciente: string, id_secretaria: string, nome_dent: string, rg_secretaria: number ) {
+    async atualizarConsulta(attConsulta: Consulta) {
         try{ 
         const consulta = await prisma.consulta.update({
-            where: { id:id },
-            data: {id: id, data: data, id_paciente: id_paciente, id_secretaria: id_secretaria, nome_dent: nome_dent, rg_secretaria: rg_secretaria},
+            where: { id:attConsulta.id },
+            data: attConsulta,
         });
         return consulta
         } catch (error) {
@@ -39,12 +39,13 @@ class ConsultaServices {
         }
     }
 
-    async deletarConsulta(id: number) {
+    async deletarConsulta(delConsulta: Consulta) {
         try {
             const consulta = await prisma.consulta.delete({
-                where: { id:id }
+                where: { id:delConsulta.id }
             });
-            return console.log("consulta deletada");
+            return (console.log("consulta apagada"), true);
+          
         } catch(error){
             console.log(error);
         }

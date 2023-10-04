@@ -27,11 +27,11 @@ class SecretariaServices {
           }
     }
 
-    async atualizarSecretaria(Nome: string, RG: number) {
+    async atualizarSecretaria(atualizadoSecretaria: Secretaria) {
         try{
         const secretaria = await prisma.secretaria.update({
-            where: { RG:RG },
-            data: {Nome: Nome, RG: RG},
+            where: { RG:atualizadoSecretaria.RG },
+            data: atualizadoSecretaria,
         });
         return secretaria
         } catch (error) {
