@@ -14,6 +14,20 @@ class SecretariaController {
   }
 
   async atualizarSecretaria(req: Request, res: Response) {
+    const attSecretaria: Secretaria = req.body;
+
+    const result = await SecretariaServices.atualizarSecretaria(attSecretaria)
+    if (result) {
+      res.status(200).json({
+        status: 'secretaria atualizado',
+        secretaria: result,
+      });
+    } else {
+      res.status(200).json({
+        status: 'erro',
+      });
+    }
+
     return res.send('Atualizar Secretaria');
   }
 

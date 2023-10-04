@@ -13,15 +13,12 @@ class ConsultaController {
     });
   }
 
-  async atualizarConsulta(req: Request, res: Response) {
-    return res.send('Atualizar Consulta');
-  }
-
+  
   async criarConsulta(req: Request, res: Response) {
     const newConsulta: Consulta = req.body;
-
+    
     const result = await ConsultaServices.criarConsulta(newConsulta);
-
+    
     if (result) {
       res.status(200).json({
         status: 'tudo ok',
@@ -33,9 +30,38 @@ class ConsultaController {
       });
     }
   }
+  
+  async atualizarConsulta(req: Request, res: Response) {
+    const attConsulta: Consulta = req.body;
+
+    const result = await ConsultaServices.atualizarConsulta(attConsulta)
+    if (result) {
+      res.status(200).json({
+        status: 'consulta atualizada',
+        consulta: result,
+      });
+    } else {
+      res.status(200).json({
+        status: 'erro',
+      });
+    }
+    return res.send('Atualizar Consulta');
+  }
 
   async deletarConsulta(req: Request, res: Response) {
-    return res.send('Deletar Consulta');
+    const delConsulta: Consulta = req.body;
+
+    const result = await ConsultaServices.deletarConsulta(delConsulta);
+    if (result) {
+      res.status(200).json({
+        status: 'consulta apagada',
+        consulta: result,
+      });
+    } else {
+      res.status(200).json({
+        status: 'erro',
+      });
+    }
   }
 }
 

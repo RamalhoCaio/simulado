@@ -14,6 +14,19 @@ class PacienteController {
   }
 
   async atualizarPaciente(req: Request, res: Response) {
+    const attPaciente: Paciente = req.body;
+
+    const result = await PacienteServices.atualizarPaciente(attPaciente)
+    if (result) {
+      res.status(200).json({
+        status: 'paciente atualizado',
+        paciente: result,
+      });
+    } else {
+      res.status(200).json({
+        status: 'erro',
+      });
+    }
     return res.send('Atualizar Paciente');
   }
 
